@@ -1,0 +1,25 @@
+<button routerLink="/pets">Back</button>
+<!-- hello -->
+<form [formGroup]="petForm" (ngSubmit)="save()">
+  <label>
+    Name:
+    <input type="text" formControlName="name">
+  </label>
+  <label>
+    Color:
+    <input type="text" formControlName="color">
+  </label>
+  <label>
+    Type:
+    <input type="text" formControlName="type">
+  </label>
+  <label>
+    Price:
+    <input type="number" formControlName="price">
+  </label>
+  <label>
+    Previous Owner:
+    <input type="text" formControlName="previousOwner">
+  </label>
+  <button type="submit">Save</button>
+</form>
