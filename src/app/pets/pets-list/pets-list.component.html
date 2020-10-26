@@ -1,4 +1,7 @@
 <ul>
-  <li *ngFor="let pet of pets">{{pet.name}}</li>
+  <li *ngFor="let pet of pets">
+    <a routerLink="/pets/{{pet.id}}">{{pet.name}}</a>
+    <button routerLink="/pet-update/{{pet.id}}">Update</button>
+  </li>
 </ul>
-<button (click)="addPet()">Add Pet</button>
+<button routerLink="/pet-add">Add Pet</button>

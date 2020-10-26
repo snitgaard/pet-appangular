@@ -18,13 +18,6 @@ export class PetsListComponent implements OnInit {
   }
 
   addPet() {
-    this.petService.addPet({
-      name: 'New person',
-      color: 'black',
-      type: 'Dog',
-      price: 1205,
-      previousOwner: 'Johnny',
-      id: 3
-    });
+    //data static for now
   }
 }

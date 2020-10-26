@@ -6,17 +6,25 @@ import { PetsListComponent } from './pets/pets-list/pets-list.component';
 import { NavbarComponent } from './shared/navbar/navbar.component';
 import { WelcomeComponent } from './welcome/welcome.component';
 import { AppRoutingModule } from './app-routing.module';
+import { PetDetailsComponent } from './pets/pet-details/pet-details.component';
+import { PetAddComponent } from './pets/pet-add/pet-add.component';
+import {ReactiveFormsModule} from "@angular/forms";
+import { PetUpdateComponent } from './pets/pet-update/pet-update.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     PetsListComponent,
     NavbarComponent,
-    WelcomeComponent
+    WelcomeComponent,
+    PetDetailsComponent,
+    PetAddComponent,
+    PetUpdateComponent
   ],
   imports: [
     BrowserModule,
-    AppRoutingModule
+    AppRoutingModule,
+    ReactiveFormsModule
   ],
   providers: [],
   bootstrap: [AppComponent]
