@@ -9,6 +9,7 @@ import {FormControl, FormGroup} from "@angular/forms";
   styleUrls: ['./pet-update.component.css']
 })
 export class PetUpdateComponent implements OnInit {
+  id: number;
   petForm = new FormGroup({
     name: new FormControl(''),
     color: new FormControl(''),
@@ -22,8 +23,8 @@ export class PetUpdateComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    const id = +this.route.snapshot.paramMap.get('id');
-    const pet = this.petService.getPetById(id);
+    this.id  = +this.route.snapshot.paramMap.get('id');
+    const pet = this.petService.getPetById(this.id);
     this.petForm.patchValue({
       name: pet.name,
       color: pet.color,
@@ -35,9 +36,10 @@ export class PetUpdateComponent implements OnInit {
   }
 
   save() {
-    /*const pet = this.petForm.value;
-    this.petService.addPet(pet);
-    this.petForm.reset();
+    const pet = this.petForm.value;
+    pet.id = this.id;
+    this.petService.updatePet(pet);
+    /*this.petForm.reset();
     this.router.navigateByUrl('/pets');*/
   }
 }

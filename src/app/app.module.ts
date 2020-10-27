@@ -10,6 +10,7 @@ import { PetDetailsComponent } from './pets/pet-details/pet-details.component';
 import { PetAddComponent } from './pets/pet-add/pet-add.component';
 import {ReactiveFormsModule} from "@angular/forms";
 import { PetUpdateComponent } from './pets/pet-update/pet-update.component';
+import {HttpClientModule} from '@angular/common/http';
 
 @NgModule({
   declarations: [
@@ -24,7 +25,8 @@ import { PetUpdateComponent } from './pets/pet-update/pet-update.component';
   imports: [
     BrowserModule,
     AppRoutingModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    HttpClientModule
   ],
   providers: [],
   bootstrap: [AppComponent]
