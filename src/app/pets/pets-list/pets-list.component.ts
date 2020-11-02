@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import {Pet} from '../../shared/model/Pet';
 import {PetService} from '../../shared/services/pet.service';
+import {AuthGuard} from '../../guards/auth.guard';
 
 @Component({
   selector: 'app-pets-list',
@@ -10,7 +11,7 @@ import {PetService} from '../../shared/services/pet.service';
 export class PetsListComponent implements OnInit {
 
   pets: Pet[] = [];
-  constructor(private petService: PetService) {
+  constructor(private petService: PetService, private authGuard: AuthGuard) {
   }
 
   ngOnInit() {
@@ -22,6 +23,7 @@ export class PetsListComponent implements OnInit {
   }
 
   refresh() {
+    this.authGuard.canActivate();
     this.petService.getPets().subscribe(listOfPets => {
       this.pets = listOfPets;
     });

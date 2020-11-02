@@ -15,7 +15,8 @@ export class PetUpdateComponent implements OnInit {
     color: new FormControl(''),
     type: new FormControl(''),
     price: new FormControl(''),
-    previousOwner: new FormControl('')
+    previousOwner: new FormControl(''),
+    isComplete: new FormControl('')
   });
 
   constructor(private petService: PetService, private route: ActivatedRoute,
@@ -24,22 +25,25 @@ export class PetUpdateComponent implements OnInit {
 
   ngOnInit(): void {
     this.id  = +this.route.snapshot.paramMap.get('id');
-    const pet = this.petService.getPetById(this.id);
-    this.petForm.patchValue({
-      name: pet.name,
-      color: pet.color,
-      type: pet.type,
-      price: pet.price,
-      previousOwner: pet.previousOwner
-    });
 
+    this.petService.getPetById(this.id)
+      .subscribe(petFromRest => {
+        this.petForm.patchValue({
+          name: petFromRest.name,
+          color: petFromRest.color,
+          type: petFromRest.type,
+          price: petFromRest.price,
+          previousOwner: petFromRest.previousOwner
+        });
+      })
   }
 
   save() {
     const pet = this.petForm.value;
     pet.id = this.id;
-    this.petService.updatePet(pet);
-    /*this.petForm.reset();
-    this.router.navigateByUrl('/pets');*/
+    this.petService.updatePet(pet)
+      .subscribe(petUpdated => {
+        this.router.navigateByUrl('/pets')
+      });
   }
 }

@@ -1,7 +1,16 @@
 import { Injectable } from '@angular/core';
 import {Pet} from '../model/Pet';
-import {HttpClient} from '@angular/common/http';
+import {HttpClient, HttpHeaders} from '@angular/common/http';
 import {Observable} from 'rxjs';
+import {environment} from '../../../environments/environment';
+import {AuthenticationService} from './authentication.service';
+
+const httpOptions = {
+  headers: new HttpHeaders({
+    'Content-Type': 'application/json',
+    'Authorization': 'my-auth-token'
+  })
+};
 
 @Injectable({
   providedIn: 'root'
@@ -10,8 +19,7 @@ export class PetService {
 
   id = 1;
   pets: Pet[];
-  apiUrl = 'https://localhost:44314/api/petshop';
-  constructor(private http: HttpClient) {
+  constructor(private http: HttpClient, private authenticationService: AuthenticationService) {
     this.pets = [
       {
         id: this.id++, name: 'Johnny Bravo', color: 'Yellow',
@@ -28,7 +36,7 @@ export class PetService {
   }
   getPets(): Observable<Pet[]>
   {
-    return this.http.get<Pet[]>(this.apiUrl);
+    return this.http.get<Pet[]>(environment.apiUrl + 'petshop');
   }
 
   addPet(pet: Pet)
@@ -45,7 +53,14 @@ export class PetService {
   }
   deletePet(id: number) : Observable<any>
   {
-    return this.http.delete(this.apiUrl + '/' + id);
+    return this.http.delete(environment.apiUrl + 'petshop/' + id);
+  }
+
+  getItems(): Observable<Pet[]> {
+    httpOptions.headers =
+      httpOptions.headers.set('Authorization', 'Bearer ' + this.authenticationService.getToken());
+    return this.http.get<Pet[]>(environment.apiUrl + 'petshop', httpOptions);
 
   }
+
 }
