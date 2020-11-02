@@ -35,7 +35,7 @@ export class PetUpdateComponent implements OnInit {
           price: petFromRest.price,
           previousOwner: petFromRest.previousOwner
         });
-      })
+      });
   }
 
   save() {
@@ -43,7 +43,7 @@ export class PetUpdateComponent implements OnInit {
     pet.id = this.id;
     this.petService.updatePet(pet)
       .subscribe(petUpdated => {
-        this.router.navigateByUrl('/pets')
+        this.router.navigateByUrl('/pets');
       });
   }
 }

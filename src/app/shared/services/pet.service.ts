@@ -20,46 +20,34 @@ export class PetService {
   id = 1;
   pets: Pet[];
   constructor(private http: HttpClient, private authenticationService: AuthenticationService) {
-    this.pets = [
-      {
-        id: this.id++, name: 'Johnny Bravo', color: 'Yellow',
-        previousOwner: 'Obama', price: 1000, type: 'Dog'
-      },
-      {
-        id: this.id++, name: 'Obama', color: 'Hmm',
-        previousOwner: 'Johnny Bravo', price: 15000, type: 'Cat'
-      }];
   }
-  getPetById(id)
+  getPetById(id: number): Observable<any>
   {
-    return this.pets.find(pet => pet.id === id);
+    return this.http.get<Pet>('https://localhost:44314/api/' + 'petshop/' + 'get/' + id)
   }
   getPets(): Observable<Pet[]>
   {
-    return this.http.get<Pet[]>(environment.apiUrl + 'petshop');
+    return this.http.get<Pet[]>('https://localhost:44314/api/' + 'petshop');
   }
 
-  addPet(pet: Pet)
+  addPet(pet: Pet): Observable<Pet>
   {
-    pet.id = this.id++;
-    this.pets.push(pet);
+    return this.http.post<Pet>('https://localhost:44314/api/' + 'petshop/', pet);
   }
 
-  updatePet(pet: Pet)
+  updatePet(pet: Pet): Observable<Pet>
   {
-    const petToUpdate = this.pets.find(p => pet.id === p.id);
-    const index = this.pets.indexOf(petToUpdate);
-    this.pets[index] = pet;
+    return this.http.put<Pet>('https://localhost:44314/api/' + 'petshop/' + pet.id, pet);
   }
   deletePet(id: number) : Observable<any>
   {
-    return this.http.delete(environment.apiUrl + 'petshop/' + id);
+    return this.http.delete('https://localhost:44314/api/' + 'petshop/' + id);
   }
 
   getItems(): Observable<Pet[]> {
     httpOptions.headers =
       httpOptions.headers.set('Authorization', 'Bearer ' + this.authenticationService.getToken());
-    return this.http.get<Pet[]>(environment.apiUrl + 'petshop', httpOptions);
+    return this.http.get<Pet[]>('https://localhost:44314/api/' + 'petshop', httpOptions);
 
   }
 
