@@ -29,12 +29,10 @@ export class PetService {
   {
     return this.http.get<Pet[]>('https://localhost:44314/api/' + 'petshop');
   }
-
   addPet(pet: Pet): Observable<Pet>
   {
     return this.http.post<Pet>('https://localhost:44314/api/' + 'petshop/', pet);
   }
-
   updatePet(pet: Pet): Observable<Pet>
   {
     return this.http.put<Pet>('https://localhost:44314/api/' + 'petshop/' + pet.id, pet);
